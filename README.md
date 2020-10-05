@@ -1,6 +1,6 @@
 # petapp
 
-An app to adopt and list pets in adoption
+An app to adopt and put pets in adoptions
 
 ## Getting Started
 
