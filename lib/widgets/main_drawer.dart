@@ -11,7 +11,16 @@ class MainDrawer extends StatelessWidget {
         textTheme: TextTheme(
           // headline1: TextStyle(color: Colors.white, fontSize: 19),
           // headline6: TextStyle(color: Colors.white, fontSize: 19),
-          bodyText1: TextStyle(color: Colors.white, fontSize: 22),
+          bodyText1: TextStyle(
+              color: Color(0xFFF4F4F4),
+              fontSize: 22,
+              fontWeight: FontWeight.w300,
+              letterSpacing: 0.7),
+          bodyText2: TextStyle(
+            color: Color(0xFFF4F4F4),
+            fontSize: 16,
+            fontWeight: FontWeight.w200,
+          ),
         ),
       ),
       child: ClipRRect(
@@ -47,9 +56,12 @@ class MainDrawer extends StatelessWidget {
                           children: [
                             Text(
                               'Terrie Crew',
-                              softWrap: true,
+                              // style: Theme.of(context).textTheme.bodyText2,
                             ),
-                            Text('terrie@gmail.com'),
+                            Text(
+                              'terrie@gmail.com',
+                              // style: Theme.of(context).textTheme.bodyText2,
+                            ),
                           ],
                         ),
                       )

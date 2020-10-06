@@ -10,7 +10,7 @@ class MainDrawerNavItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(20.0),
       child: GestureDetector(
         onTap: onTap,
         child: Row(
@@ -18,7 +18,7 @@ class MainDrawerNavItem extends StatelessWidget {
           children: [
             Icon(
               icon,
-              color: Colors.white,
+              color: Color(0xFFF4F4F4),
               size: 30,
             ),
             SizedBox(
