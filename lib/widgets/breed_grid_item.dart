@@ -23,6 +23,11 @@ class BreedGridItem extends StatelessWidget {
               alignment: Alignment.topCenter,
             ),
           ),
+          Positioned.fill(
+            child: Container(
+              color: Colors.black26,
+            ),
+          ),
           Positioned.directional(
             textDirection: TextDirection.rtl,
             bottom: 0,
@@ -40,18 +45,11 @@ class BreedGridItem extends StatelessWidget {
                     ),
                     Text(
                       breed.name,
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
                     ),
-                  ],
-                ),
-              ),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color(0x00000000),
-                    Color(0x66000000),
                   ],
                 ),
               ),

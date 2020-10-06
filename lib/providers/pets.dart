@@ -70,29 +70,64 @@ class Pets extends ChangeNotifier {
         name: 'Maya',
         age: 3,
         ageUnit: 'year',
-        description: 'She was found on a mountain surviving by her self',
+        description: 'She was found on a mountain surviving by herself',
         type: 'cat',
         id: 'm3y',
         sex: 'female',
         breed: 'Mixed/Unknown',
         imageUrl:
             'https://static.scientificamerican.com/sciam/cache/file/92E141F8-36E4-4331-BB2EE42AC8674DD3_source.jpg'),
+    Pet(
+        name: 'Freya',
+        age: 2,
+        ageUnit: 'year',
+        description: 'A beautiful black cat',
+        type: 'cat',
+        id: 'f2y',
+        sex: 'female',
+        breed: 'Bombay',
+        imageUrl:
+            'https://www.purina.co.uk/sites/g/files/mcldtz2481/files/styles/nppe_breed_selector_500/public/breed_library/cat_bombay.jpg'),
+    Pet(
+        name: 'Ra',
+        age: 3,
+        ageUnit: 'month',
+        description: 'A newborn cat',
+        type: 'cat',
+        id: 'r3m',
+        sex: 'male',
+        breed: 'Sphinx',
+        imageUrl:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRWcQqrXuBYfee1gYgE43GPbN7dfPGkDQmZWg&usqp=CAU'),
+    Pet(
+        name: 'Ptolomeo',
+        age: 1,
+        ageUnit: 'year',
+        description: 'A happy young cat',
+        type: 'cat',
+        id: 'p1y',
+        sex: 'male',
+        breed: 'Sphinx',
+        imageUrl:
+            'https://allaboutcats.com/wp-content/uploads/2017/04/sphynx-cat-care.jpg'),
   ];
 
   List<Pet> get pets {
     return _pets;
   }
 
-  List<Breed> breeds() {
+  List<Breed> breeds(String type) {
     List<Breed> groupedByBreeds = [];
     _pets.forEach((pet) {
-      var breedIndex =
-          groupedByBreeds.indexWhere((element) => element.name == pet.breed);
-      if (breedIndex >= 0) {
-        groupedByBreeds[breedIndex].quantity += 1;
-      } else {
-        groupedByBreeds
-            .add(Breed(name: pet.breed, quantity: 1, imageUrl: pet.imageUrl));
+      if (type.toLowerCase() == pet.type.toLowerCase()) {
+        var breedIndex =
+            groupedByBreeds.indexWhere((element) => element.name == pet.breed);
+        if (breedIndex >= 0) {
+          groupedByBreeds[breedIndex].quantity += 1;
+        } else {
+          groupedByBreeds
+              .add(Breed(name: pet.breed, quantity: 1, imageUrl: pet.imageUrl));
+        }
       }
     });
 

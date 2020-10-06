@@ -111,7 +111,7 @@ class _PetsOverviewScreenState extends State<PetsOverviewScreen> {
             ),
             Expanded(
               child: Consumer<Pets>(builder: (context, value, child) {
-                final breeds = value.breeds();
+                final breeds = value.breeds(_groupValue);
 
                 return StaggeredGridView.countBuilder(
                   crossAxisSpacing: 20,
@@ -121,7 +121,7 @@ class _PetsOverviewScreenState extends State<PetsOverviewScreen> {
                       BreedGridItem(breeds[index], _groupValue),
                   itemCount: breeds.length,
                   staggeredTileBuilder: (index) =>
-                      StaggeredTile.count(1, index.isEven ? 1.2 : 0.8),
+                      StaggeredTile.count(1, index.isEven ? 1.1 : 0.8),
                 );
               }),
             ),
