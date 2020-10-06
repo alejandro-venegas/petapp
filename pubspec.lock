@@ -121,10 +121,10 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0-nullsafety.2"
-  stack_trace:
+  stack_tbreed:
     dependency: transitive
     description:
-      name: stack_trace
+      name: stack_tbreed
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.10.0-nullsafety.1"

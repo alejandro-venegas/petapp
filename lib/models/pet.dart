@@ -5,7 +5,7 @@ class Pet {
   String ageUnit;
   String description;
   String sex;
-  String race;
+  String breed;
   String type;
   String imageUrl;
 
@@ -17,6 +17,6 @@ class Pet {
       this.description,
       this.sex,
       this.imageUrl,
-      this.race,
+      this.breed,
       this.type});
 }
