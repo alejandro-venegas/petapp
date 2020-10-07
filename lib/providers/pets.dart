@@ -65,7 +65,7 @@ class Pets extends ChangeNotifier {
         sex: 'female',
         breed: 'Chihuahua',
         imageUrl:
-            'https://www.zooplus.es/magazine/wp-content/uploads/2017/03/schwarz-chihuahua-1024x683.jpgR'),
+            'https://www.zooplus.es/magazine/wp-content/uploads/2017/03/schwarz-chihuahua-1024x683.jpg'),
     Pet(
         name: 'Maya',
         age: 3,
@@ -132,5 +132,13 @@ class Pets extends ChangeNotifier {
     });
 
     return groupedByBreeds;
+  }
+
+  List<Pet> getPetsByBreedAndType(String breed, String type) {
+    return _pets
+        .where((element) =>
+            element.type.toLowerCase() == type.toLowerCase() &&
+            element.breed.toLowerCase() == breed.toLowerCase())
+        .toList();
   }
 }

@@ -49,7 +49,7 @@ class _PetsOverviewScreenState extends State<PetsOverviewScreen> {
       drawerScrimColor: Colors.transparent,
       appBar: appbar,
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+        padding: const EdgeInsets.only(left: 20.0, top: 20, right: 20),
         child: Column(
           children: [
             if (_isMenuOpened) ...[
