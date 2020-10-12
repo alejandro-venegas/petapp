@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:petapp/app_constants.dart';
 import 'package:petapp/models/pet.dart';
 
 class PetListItem extends StatelessWidget {
@@ -12,7 +14,7 @@ class PetListItem extends StatelessWidget {
         height: 150,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: Color(0xFFeeeeee), width: 2)),
+            border: Border.all(color: kGrey, width: 2)),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Row(
@@ -25,12 +27,12 @@ class PetListItem extends StatelessWidget {
                   pet.imageUrl,
                   fit: BoxFit.cover,
                   alignment: Alignment.topCenter,
-                  height: 70,
-                  width: 70,
+                  height: 80,
+                  width: 80,
                 ),
               ),
               SizedBox(
-                width: 40,
+                width: 20,
               ),
               Expanded(
                 child: Column(
@@ -39,10 +41,40 @@ class PetListItem extends StatelessWidget {
                   children: [
                     Text(
                       pet.name,
+                      style: TextStyle(
+                          color: kBlack,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 17),
                     ),
                     Row(
                       children: [
-                        Text('${pet.age} ${pet.ageUnit} old'),
+                        Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color(0xFFFF2755),
+                          ),
+                          height: 5,
+                          width: 5,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                            '${pet.age} ${pet.ageUnit}${pet.age > 1 ? 's' : ''} old'),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color(0xFF665DB0),
+                          ),
+                          height: 5,
+                          width: 5,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
                         Text('${pet.sex}'),
                       ],
                     ),
@@ -51,7 +83,19 @@ class PetListItem extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                     ),
-                    Text('Visit Home')
+                    InkWell(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Visit Home',
+                          style:
+                              TextStyle(color: Theme.of(context).accentColor),
+                        ),
+                      ),
+                      onTap: () => print('Hey'),
+                      splashColor: kGrey,
+                    )
                   ],
                 ),
               ),

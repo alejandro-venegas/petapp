@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petapp/app_constants.dart';
 
 class PetTypeRadioButton extends StatelessWidget {
   final String groupValue;
@@ -13,8 +14,8 @@ class PetTypeRadioButton extends StatelessWidget {
         height: 70,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(70),
-          color: groupValue == value ? Color(0xFFeeeeee) : null,
-          border: Border.all(color: Color(0xFFeeeeee), width: 1.5),
+          color: groupValue == value ? kGrey : null,
+          border: Border.all(color: kGrey, width: 1.5),
         ),
         child: Padding(
           padding: const EdgeInsets.all(15),
