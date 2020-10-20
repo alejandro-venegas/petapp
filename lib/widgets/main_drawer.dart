@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petapp/app_constants.dart';
+import 'package:petapp/screens/new_pet_form_screen.dart';
 import 'package:petapp/widgets/main_drawer_nav_item.dart';
 
 class MainDrawer extends StatelessWidget {
@@ -76,6 +77,14 @@ class MainDrawer extends StatelessWidget {
                       MainDrawerNavItem(
                         icon: Icons.home_outlined,
                         title: 'Adoption',
+                        onTap: () =>
+                            Navigator.of(context).pushReplacementNamed('/'),
+                      ),
+                      MainDrawerNavItem(
+                        icon: Icons.pets,
+                        title: 'My Pets',
+                        onTap: () => Navigator.of(context)
+                            .pushReplacementNamed(NewPetFormScreen.routeName),
                       ),
                       MainDrawerNavItem(
                         icon: Icons.favorite_border_outlined,

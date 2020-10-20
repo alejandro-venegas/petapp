@@ -50,6 +50,64 @@ class PetDetailScreen extends StatelessWidget {
                 pet.name,
                 style: TextStyle(
                     fontSize: 30, color: kBlack, fontWeight: FontWeight.w500),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Color(0xFFFF2755),
+                        ),
+                        height: 5,
+                        width: 5,
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                          '${pet.age} ${pet.ageUnit}${pet.age > 1 ? 's' : ''} old'),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Color(0xFF665DB0),
+                        ),
+                        height: 5,
+                        width: 5,
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text('${pet.sex}'),
+                    ],
+                  ),
+                ],
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: kGrey, width: 2)),
+                  child: Text(pet.description, textAlign: TextAlign.justify),
+                ),
+              ),
+              TextButton(
+                child: Text('Visit Home'),
+                onPressed: () {},
+                style: TextButton.styleFrom(
+                    primary: Theme.of(context).accentColor),
               )
             ],
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:petapp/app_constants.dart';
 import 'package:petapp/providers/pets.dart';
+import 'package:petapp/screens/new_pet_form_screen.dart';
 import 'package:petapp/screens/pet_detail_screen.dart';
 import 'package:petapp/screens/pets_list_screen.dart';
 import 'package:petapp/screens/pets_overview_screen.dart';
@@ -25,7 +26,8 @@ void main() {
       home: PetsOverviewScreen(),
       routes: {
         PetsListScreen.route: (context) => PetsListScreen(),
-        PetDetailScreen.routeName: (context) => PetDetailScreen()
+        PetDetailScreen.routeName: (context) => PetDetailScreen(),
+        NewPetFormScreen.routeName: (context) => NewPetFormScreen()
       },
     ),
     create: (context) => Pets(),
