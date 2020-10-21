@@ -1,7 +1,11 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:petapp/app_constants.dart';
+import 'package:petapp/models/pet.dart';
+import 'package:petapp/providers/pets.dart';
 import 'package:petapp/widgets/main_drawer.dart';
+import 'package:provider/provider.dart';
 
 class NewPetFormScreen extends StatefulWidget {
   static const String routeName = '/new-pet';
@@ -10,15 +14,18 @@ class NewPetFormScreen extends StatefulWidget {
 }
 
 class _NewPetFormScreenState extends State<NewPetFormScreen> {
-  final _formKey = GlobalKey();
+  final _formKey = GlobalKey<FormState>();
   String ageUnit = 'year';
   String type;
+  String sex;
   String imageUrl = '';
   FocusNode nameInputFocusNode;
   FocusNode ageInputFocusNode;
   FocusNode breedInputFocusNode;
   FocusNode imageUrlInputFocusNode;
   FocusNode descriptionInputFocusNode;
+
+  Pet newPet = Pet();
 
   @override
   void initState() {
@@ -55,6 +62,32 @@ class _NewPetFormScreenState extends State<NewPetFormScreen> {
     super.dispose();
   }
 
+  _formSave() async {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      showDialog(
+        context: context,
+        barrierColor: Colors.transparent,
+        barrierDismissible: false,
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+      try {
+        Response response =
+            await Provider.of<Pets>(context, listen: false).saveNewPet(newPet);
+        print(response.data);
+      } catch (error) {
+        print(error);
+        await showDialog(
+          context: context,
+          child: SimpleDialog(title: Text('An error occured!'),),
+        );
+      }
+      Navigator.of(context).pop();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,6 +114,8 @@ class _NewPetFormScreenState extends State<NewPetFormScreen> {
           child: ListView(
             children: [
               TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                onSaved: (newValue) => newPet.name = newValue,
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Please enter some text';
@@ -116,10 +151,14 @@ class _NewPetFormScreenState extends State<NewPetFormScreen> {
                 children: [
                   Expanded(
                     child: TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      onSaved: (newValue) =>
+                          newPet.age = int.tryParse(newValue),
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Please enter a number';
-                        } else if (int.parse(value) < 1) {
+                        } else if (int.tryParse(value) == null ||
+                            int.parse(value) < 1) {
                           return 'The age must be greater than zero';
                         }
                         return null;
@@ -151,6 +190,7 @@ class _NewPetFormScreenState extends State<NewPetFormScreen> {
                   SizedBox(
                     width: 100,
                     child: DropdownButtonFormField(
+                      onSaved: (newValue) => newPet.ageUnit = newValue,
                       items: [
                         DropdownMenuItem(child: Text('Years'), value: 'year'),
                         DropdownMenuItem(
@@ -165,6 +205,19 @@ class _NewPetFormScreenState extends State<NewPetFormScreen> {
                 ],
               ),
               DropdownButtonFormField(
+                onSaved: (newValue) => newPet.sex = newValue,
+                decoration: InputDecoration(labelText: 'Sex'),
+                items: [
+                  DropdownMenuItem(child: Text('Male'), value: 'male'),
+                  DropdownMenuItem(child: Text('Female'), value: 'female'),
+                ],
+                onChanged: (value) => setState(() => sex = value),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              DropdownButtonFormField(
+                onSaved: (newValue) => newPet.type = newValue,
                 decoration: InputDecoration(labelText: 'Type'),
                 items: [
                   DropdownMenuItem(child: Text('Dog'), value: 'dog'),
@@ -176,6 +229,8 @@ class _NewPetFormScreenState extends State<NewPetFormScreen> {
                 height: 10,
               ),
               TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                onSaved: (newValue) => newPet.breed = newValue,
                 textInputAction: TextInputAction.next,
                 focusNode: breedInputFocusNode,
                 onFieldSubmitted: (_) => imageUrlInputFocusNode.requestFocus(),
@@ -219,25 +274,28 @@ class _NewPetFormScreenState extends State<NewPetFormScreen> {
                       fit: BoxFit.cover,
                     ),
                     decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey, width: 1),
-                        borderRadius: BorderRadius.circular(10)),
+                      border: Border.all(color: Colors.grey, width: 1),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
                   SizedBox(
                     width: 10,
                   ),
                   Expanded(
                     child: TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      onSaved: (newValue) => newPet.imageUrl = newValue,
                       textInputAction: TextInputAction.next,
                       onFieldSubmitted: (_) =>
                           descriptionInputFocusNode.requestFocus(),
                       focusNode: imageUrlInputFocusNode,
                       validator: (value) {
                         var regExp = RegExp(
-                            r"^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$");
+                            r'(http[s]?:\/\/)?[^\s(["<,>]*\.[^\s[",><]*');
                         if (value.isEmpty) {
                           return 'Please enter an URL';
                         } else if (!regExp.hasMatch(value)) {
-                          return 'Breed must be less than 40 characters long';
+                          return 'Please enter a valid URL';
                         }
                         return null;
                       },
@@ -266,6 +324,8 @@ class _NewPetFormScreenState extends State<NewPetFormScreen> {
                 height: 10,
               ),
               TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                onSaved: (newValue) => newPet.description = newValue,
                 textInputAction: TextInputAction.newline,
                 focusNode: descriptionInputFocusNode,
                 keyboardType: TextInputType.multiline,
@@ -288,6 +348,15 @@ class _NewPetFormScreenState extends State<NewPetFormScreen> {
                 ),
                 maxLines: 3,
               ),
+              SizedBox(
+                height: 10,
+              ),
+              ElevatedButton(
+                onPressed: () => _formSave(),
+                child: Text('Save'),
+                style: ElevatedButton.styleFrom(
+                    primary: Theme.of(context).accentColor),
+              )
             ],
           ),
         ),

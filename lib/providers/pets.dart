@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:petapp/app_constants.dart';
 import 'package:petapp/models/pet.dart';
 
 class Breed {
@@ -10,6 +12,7 @@ class Breed {
 }
 
 class Pets extends ChangeNotifier {
+  Dio dio = Dio();
   List<Pet> _pets = [
     Pet(
         name: 'Fluffy',
@@ -140,5 +143,9 @@ class Pets extends ChangeNotifier {
             element.type.toLowerCase() == type.toLowerCase() &&
             element.breed.toLowerCase() == breed.toLowerCase())
         .toList();
+  }
+
+  Future saveNewPet(Pet pet) {
+    return dio.post(kApiUrl + 'pets.jn', data: pet.toMap());
   }
 }

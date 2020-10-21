@@ -19,4 +19,17 @@ class Pet {
       this.imageUrl,
       this.breed,
       this.type});
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'age': age,
+      'ageUnit': ageUnit,
+      'description': description,
+      'sex': sex,
+      'imageUrl': imageUrl,
+      'breed': breed,
+      'type': type
+    };
+  }
 }
