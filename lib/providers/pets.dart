@@ -146,6 +146,6 @@ class Pets extends ChangeNotifier {
   }
 
   Future saveNewPet(Pet pet) {
-    return dio.post(kApiUrl + 'pets.jn', data: pet.toMap());
+    return dio.post(kApiUrl + 'pets.json', data: pet.toMap());
   }
 }

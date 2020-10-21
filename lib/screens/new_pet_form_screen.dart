@@ -81,7 +81,12 @@ class _NewPetFormScreenState extends State<NewPetFormScreen> {
         print(error);
         await showDialog(
           context: context,
-          child: SimpleDialog(title: Text('An error occured!'),),
+          child: AlertDialog(
+            title: Text(
+              'An error occured!',
+            ),
+            content: Text('An error just occurred. Please Try Again!'),
+          ),
         );
       }
       Navigator.of(context).pop();
